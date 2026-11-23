@@ -1,0 +1,3046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURELIA — Define Your Style | Luxury Fashion Store</title>
+  <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & LUXURY COLOR PALETTE (OBSIDIAN BLACK & ELECTRIC BLUE)
+       ========================================================================== */
+    :root {
+      --obsidian: #05070D;
+      --charcoal: #0B1120;
+      --alabaster: #070B14;
+      --beige: #0F172A;
+      --sand: rgba(56, 189, 248, 0.22);
+      --gold: #38BDF8;
+      --gold-dark: #0284C7;
+      --gold-light: #7DD3FC;
+      --blue-glow: rgba(56, 189, 248, 0.45);
+      --white: #F8FAFC;
+      --text-muted: #94A3B8;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --transition-smooth: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Reset & Base Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--obsidian);
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(37, 99, 235, 0.09) 0%, transparent 50%);
+      color: var(--white);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 5%;
+    }
+
+    /* ==========================================================================
+       2. KEYFRAME ANIMATIONS (PURE CSS)
+       ========================================================================== */
+    /* Smooth Page-Loading Curtain Animation */
+    @keyframes curtainFadeOut {
+      0%, 75% {
+        opacity: 1;
+        visibility: visible;
+      }
+      100% {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
+
+    @keyframes loaderLine {
+      0% { width: 0%; }
+      80% { width: 100%; }
+      100% { width: 100%; }
+    }
+
+    /* Marquee Ticker */
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Automatic 3-Slide Hero Banner + Ken Burns Zoom */
+    @keyframes heroSlide1 {
+      0%, 30% { opacity: 1; transform: scale(1); z-index: 2; }
+      35%, 95% { opacity: 0; transform: scale(1.1); z-index: 1; }
+      100% { opacity: 1; transform: scale(1); z-index: 2; }
+    }
+
+    @keyframes heroSlide2 {
+      0%, 30% { opacity: 0; transform: scale(1.08); z-index: 1; }
+      35%, 63% { opacity: 1; transform: scale(1); z-index: 2; }
+      68%, 100% { opacity: 0; transform: scale(1.1); z-index: 1; }
+    }
+
+    @keyframes heroSlide3 {
+      0%, 63% { opacity: 0; transform: scale(1.08); z-index: 1; }
+      68%, 95% { opacity: 1; transform: scale(1); z-index: 2; }
+      100% { opacity: 0; transform: scale(1.1); z-index: 1; }
+    }
+
+    /* Fade Up Entry Animation */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Floating Visual Element */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(2deg); }
+    }
+
+    /* Pulsing Glow for Sale Banner */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.45; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.08); }
+    }
+
+    /* Neon Blue Orbit & Shimmer Animations */
+    @keyframes borderGlowPulse {
+      0%, 100% { box-shadow: 0 0 18px rgba(56, 189, 248, 0.18), inset 0 0 12px rgba(56, 189, 248, 0.08); }
+      50% { box-shadow: 0 0 34px rgba(56, 189, 248, 0.45), inset 0 0 20px rgba(56, 189, 248, 0.18); }
+    }
+
+    @keyframes spinSlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes floatOrb {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(25px, -30px) scale(1.08); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+
+    /* ==========================================================================
+       3. PAGE LOADER & ANNOUNCEMENT MARQUEE
+       ========================================================================== */
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background-color: var(--obsidian);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: curtainFadeOut 1.6s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+    }
+
+    .loader-brand {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      letter-spacing: 0.35em;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .loader-track {
+      width: 200px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .loader-fill {
+      height: 100%;
+      background: var(--gold);
+      animation: loaderLine 1.2s ease-out forwards;
+    }
+
+    .loader-sub {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      margin-top: 0.85rem;
+    }
+
+    .announcement-bar {
+      background: linear-gradient(90deg, #030508, #0B192C, #030508);
+      color: var(--white);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.65rem 0;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.22);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 30s linear infinite;
+    }
+
+    .marquee-track span {
+      margin: 0 1.8rem;
+    }
+
+    .marquee-track .star {
+      color: var(--gold);
+      margin: 0 0.5rem;
+    }
+
+    /* ==========================================================================
+       4. STICKY NAVIGATION BAR & PURE CSS DROPDOWNS
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5, 7, 13, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--sand);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.65);
+      transition: var(--transition-smooth);
+    }
+
+    .nav-inner {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .brand-monogram {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      transition: var(--transition-smooth);
+    }
+
+    .brand-logo:hover .brand-monogram {
+      background: var(--gold);
+      color: var(--obsidian);
+      box-shadow: 0 0 22px var(--blue-glow);
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      letter-spacing: 0.24em;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 0.5rem 0;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--gold);
+      transition: width 0.35s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--gold-light);
+      text-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .sale-pill {
+      background: var(--gold);
+      color: var(--obsidian);
+      font-size: 0.6rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      margin-left: 0.25rem;
+      font-weight: 700;
+    }
+
+    /* Dropdown Menu */
+    .has-dropdown {
+      position: relative;
+      padding: 1.6rem 0;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: -1rem;
+      width: 240px;
+      background: var(--charcoal);
+      border: 1px solid var(--sand);
+      border-radius: 18px;
+      padding: 1.4rem;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.75), 0 0 24px rgba(56, 189, 248, 0.15);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: var(--transition-smooth);
+    }
+
+    .has-dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-title {
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+    }
+
+    .dropdown-menu li a {
+      display: block;
+      padding: 0.38rem 0;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: var(--white);
+      transition: transform 0.25s ease, color 0.25s ease;
+    }
+
+    .dropdown-menu li a:hover {
+      color: var(--gold);
+      transform: translateX(6px);
+    }
+
+    /* Nav Utility Icons */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .icon-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      transition: var(--transition-smooth);
+    }
+
+    .icon-btn:hover {
+      background: var(--beige);
+      color: var(--gold);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+    }
+
+    .badge-count {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--gold-dark);
+      color: var(--white);
+      font-size: 0.62rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .badge-gold {
+      background: var(--gold);
+      color: var(--obsidian);
+    }
+
+    .account-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--sand);
+      background: rgba(15, 23, 42, 0.75);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: var(--transition-smooth);
+    }
+
+    .account-btn:hover {
+      border-color: var(--gold);
+      background: var(--beige);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.3);
+    }
+
+    /* Pure CSS Search Drawer Toggle */
+    #search-toggle, #mobile-menu-toggle {
+      display: none;
+    }
+
+    .search-drawer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+
+    #search-toggle:checked ~ .search-drawer {
+      max-height: 90px;
+      padding-bottom: 1.1rem;
+    }
+
+    .search-box {
+      position: relative;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.85rem 1.2rem 0.85rem 3rem;
+      border-radius: 999px;
+      border: 1px solid var(--sand);
+      background: var(--charcoal);
+      color: var(--white);
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.25);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1.15rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+    }
+
+    .mobile-hamburger {
+      display: none;
+      font-size: 1.25rem;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       5. ANIMATED FULL-SCREEN HERO SECTION (WITH PARALLAX & SLIDER)
+       ========================================================================== */
+    .hero {
+      position: relative;
+      height: 90vh;
+      min-height: 620px;
+      background-color: var(--obsidian);
+      color: var(--white);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    /* Ambient Animated Blue Orbs */
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      right: 10%;
+      bottom: -15%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, transparent 70%);
+      z-index: 4;
+      pointer-events: none;
+      animation: floatOrb 12s infinite ease-in-out;
+    }
+
+    .hero-bg-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed; /* Elegant CSS Parallax Effect */
+      opacity: 0;
+    }
+
+    .hero-slide-1 {
+      background-image: linear-gradient(90deg, rgba(5,7,13,0.92) 0%, rgba(7,15,32,0.62) 55%, rgba(5,7,13,0.35) 100%),
+        url('https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1920&q=85');
+      animation: heroSlide1 18s infinite ease-in-out;
+    }
+
+    .hero-slide-2 {
+      background-image: linear-gradient(90deg, rgba(5,7,13,0.92) 0%, rgba(7,15,32,0.62) 55%, rgba(5,7,13,0.35) 100%),
+        url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1920&q=85');
+      animation: heroSlide2 18s infinite ease-in-out;
+    }
+
+    .hero-slide-3 {
+      background-image: linear-gradient(90deg, rgba(5,7,13,0.92) 0%, rgba(7,15,32,0.62) 55%, rgba(5,7,13,0.35) 100%),
+        url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1920&q=85');
+      animation: heroSlide3 18s infinite ease-in-out;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      max-width: 760px;
+      animation: fadeUp 1.1s ease-out both;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      backdrop-filter: blur(8px);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      animation: borderGlowPulse 4s infinite ease-in-out;
+    }
+
+    .hero-pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 10px var(--gold);
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 7vw, 6.2rem);
+      font-weight: 500;
+      line-height: 1.03;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-title span {
+      font-style: italic;
+      color: var(--gold);
+      text-shadow: 0 0 28px rgba(56, 189, 248, 0.45);
+      font-weight: 400;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      color: rgba(250, 248, 245, 0.85);
+      font-weight: 300;
+      max-width: 560px;
+      margin-bottom: 2.4rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Luxury Animated Buttons */
+    .btn {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 1.05rem 2.1rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: var(--transition-smooth);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(56, 189, 248, 0.35);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--obsidian);
+      font-weight: 700;
+    }
+
+    .btn-gold:hover {
+      background: var(--white);
+      color: var(--obsidian);
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--obsidian);
+    }
+
+    .btn-white:hover {
+      background: var(--gold);
+      color: var(--obsidian);
+    }
+
+    .btn-outline-light {
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(6px);
+      color: var(--white);
+    }
+
+    .btn-outline-light:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    .btn-dark {
+      background: linear-gradient(135deg, #0EA5E9, #1D4ED8);
+      color: var(--white);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .btn-dark:hover {
+      background: var(--gold);
+      color: var(--obsidian);
+    }
+
+    /* Floating Runway Badge */
+    .floating-emblem {
+      position: absolute;
+      right: 7%;
+      top: 24%;
+      z-index: 10;
+      width: 148px;
+      height: 148px;
+      border-radius: 50%;
+      border: 1px solid rgba(56, 189, 248, 0.55);
+      background: rgba(5, 7, 13, 0.65);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      animation: floatSlow 6s ease-in-out infinite, borderGlowPulse 4s infinite ease-in-out;
+    }
+
+    .floating-emblem::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px dashed rgba(56, 189, 248, 0.45);
+      animation: spinSlow 24s linear infinite;
+    }
+
+    .floating-emblem .top {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+    }
+
+    .floating-emblem .year {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      line-height: 1.1;
+    }
+
+    .floating-emblem .bot {
+      font-size: 0.56rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* ==========================================================================
+       6. SECTION HEADERS & PURE CSS CATEGORY TABS (MEN / WOMEN / KIDS)
+       ========================================================================== */
+    .section-padding {
+      padding: 5.5rem 0;
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-eyebrow {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+      font-weight: 500;
+      line-height: 1.1;
+      color: var(--white);
+    }
+
+    /* Pure CSS Radio Tabs for Men, Women, Kids */
+    .cat-radio {
+      display: none;
+    }
+
+    .cat-tabs-bar {
+      display: inline-flex;
+      padding: 0.35rem;
+      border-radius: 999px;
+      background: var(--charcoal);
+      border: 1px solid var(--sand);
+      margin-bottom: 2.5rem;
+    }
+
+    .cat-tab-label {
+      padding: 0.65rem 1.6rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    #tab-men:checked ~ .cat-tabs-bar label[for="tab-men"],
+    #tab-women:checked ~ .cat-tabs-bar label[for="tab-women"],
+    #tab-kids:checked ~ .cat-tabs-bar label[for="tab-kids"] {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--obsidian);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+    }
+
+    .cat-panel {
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    #tab-men:checked ~ .panel-men,
+    #tab-women:checked ~ .panel-women,
+    #tab-kids:checked ~ .panel-kids {
+      display: grid;
+    }
+
+    .category-card {
+      position: relative;
+      height: 330px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--charcoal);
+      border: 1px solid var(--sand);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.6rem;
+      color: var(--white);
+      transition: var(--transition-smooth);
+    }
+
+    .category-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 18px 38px rgba(56, 189, 248, 0.25);
+      transform: translateY(-6px);
+    }
+
+    .category-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .category-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5,7,13,0.1) 25%, rgba(5,7,13,0.92) 100%);
+    }
+
+    .category-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .category-card-body {
+      position: relative;
+      z-index: 2;
+    }
+
+    .category-dept {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+    }
+
+    .category-name {
+      font-family: var(--font-serif);
+      font-size: 1.85rem;
+      margin: 0.15rem 0 0.9rem;
+    }
+
+    .category-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.14);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: var(--transition-smooth);
+    }
+
+    .category-card:hover .category-cta {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--obsidian);
+    }
+
+    /* ==========================================================================
+       7. TRENDING PRODUCTS SECTION & PURE CSS CATEGORY FILTERING
+       ========================================================================== */
+    .products-section {
+      background-color: var(--alabaster);
+      border-top: 1px solid var(--sand);
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .filter-radio {
+      display: none;
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .filter-label {
+      padding: 0.6rem 1.35rem;
+      border-radius: 999px;
+      background: var(--charcoal);
+      border: 1px solid var(--sand);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .filter-label:hover {
+      border-color: var(--gold);
+      color: var(--white);
+    }
+
+    #filt-all:checked ~ .filter-pills label[for="filt-all"],
+    #filt-men:checked ~ .filter-pills label[for="filt-men"],
+    #filt-women:checked ~ .filter-pills label[for="filt-women"],
+    #filt-ethnic:checked ~ .filter-pills label[for="filt-ethnic"],
+    #filt-footwear:checked ~ .filter-pills label[for="filt-footwear"] {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--obsidian);
+      border-color: var(--gold);
+      box-shadow: 0 6px 18px rgba(56, 189, 248, 0.3);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.75rem;
+    }
+
+    /* Pure CSS Filter Rules */
+    #filt-men:checked ~ .products-grid .product-card:not([data-cat*="men"]),
+    #filt-women:checked ~ .products-grid .product-card:not([data-cat*="women"]),
+    #filt-ethnic:checked ~ .products-grid .product-card:not([data-cat*="ethnic"]),
+    #filt-footwear:checked ~ .products-grid .product-card:not([data-cat*="footwear"]) {
+      display: none;
+    }
+
+    .product-card {
+      background: var(--charcoal);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--sand);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition-smooth);
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--gold);
+      box-shadow: 0 24px 48px rgba(56, 189, 248, 0.22);
+    }
+
+    .product-media {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      background: var(--beige);
+      overflow: hidden;
+    }
+
+    .product-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-card:hover .product-media img {
+      transform: scale(1.08);
+    }
+
+    .discount-tag {
+      position: absolute;
+      top: 0.9rem;
+      left: 0.9rem;
+      background: rgba(5, 7, 13, 0.88);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: var(--gold);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    /* Interactive CSS Wishlist Heart Toggle */
+    .wish-checkbox {
+      display: none;
+    }
+
+    .wish-btn {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(5, 7, 13, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .wish-btn:hover {
+      transform: scale(1.12);
+    }
+
+    .wish-checkbox:checked + .wish-btn {
+      color: var(--gold);
+      border-color: var(--gold);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+    }
+
+    .wish-checkbox:checked + .wish-btn i::before {
+      font-weight: 900;
+    }
+
+    /* Product Hover Action Bar */
+    .product-hover-bar {
+      position: absolute;
+      left: 0.85rem;
+      right: 0.85rem;
+      bottom: 0.85rem;
+      display: flex;
+      gap: 0.5rem;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: var(--transition-smooth);
+    }
+
+    .product-card:hover .product-hover-bar {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .add-bag-link {
+      flex: 1;
+      padding: 0.78rem 1rem;
+      border-radius: 999px;
+      background: rgba(5, 7, 13, 0.92);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: var(--white);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .add-bag-link:hover {
+      background: var(--gold);
+      color: var(--obsidian);
+    }
+
+    .quick-view-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(5, 7, 13, 0.92);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .quick-view-link:hover {
+      background: var(--gold);
+      color: var(--obsidian);
+    }
+
+    .product-info {
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+
+    .product-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .product-cat-label {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .product-stars {
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    .product-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.9rem;
+    }
+
+    .product-price-row {
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(56, 189, 248, 0.14);
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .price-now {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .price-was {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    /* ==========================================================================
+       8. MEGA FASHION SALE SECTION (PROMO BANNER & COUNTDOWN DESIGN)
+       ========================================================================== */
+    .sale-section {
+      position: relative;
+      background-color: var(--obsidian);
+      color: var(--white);
+      padding: 6rem 0;
+      overflow: hidden;
+    }
+
+    .sale-glow-1, .sale-glow-2 {
+      position: absolute;
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56,189,248,0.28) 0%, transparent 70%);
+      animation: pulseGlow 5s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    .sale-glow-1 { top: -120px; left: -120px; }
+    .sale-glow-2 { bottom: -120px; right: -120px; animation-delay: 2.5s; }
+
+    .sale-card {
+      position: relative;
+      z-index: 2;
+      border-radius: 28px;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: linear-gradient(135deg, #0B1120 0%, #05070D 60%, #0F1E3A 100%);
+      padding: clamp(2rem, 5vw, 4.5rem);
+      display: grid;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 3rem;
+      align-items: center;
+      box-shadow: 0 30px 65px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.16);
+      animation: borderGlowPulse 5s infinite ease-in-out;
+    }
+
+    .sale-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .sale-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 5vw, 4.4rem);
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .sale-offer {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 6vw, 5.2rem);
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold), #2563EB);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0.3rem 0 1rem;
+    }
+
+    .sale-sub {
+      font-size: 1.05rem;
+      color: rgba(250, 248, 245, 0.8);
+      max-width: 520px;
+      margin-bottom: 2rem;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(64px, 92px));
+      gap: 0.85rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .cd-box {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      border-radius: 16px;
+      padding: 0.9rem 0.5rem;
+      text-align: center;
+    }
+
+    .cd-num {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .cd-num.gold { color: var(--gold); }
+
+    .cd-lbl {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #9CA3AF;
+    }
+
+    .sale-visual {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .sale-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .sale-visual:hover img {
+      transform: scale(1.06);
+    }
+
+    .sale-code-overlay {
+      position: absolute;
+      inset: auto 1.2rem 1.2rem 1.2rem;
+      padding: 1rem 1.25rem;
+      border-radius: 16px;
+      background: rgba(5, 7, 13, 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ==========================================================================
+       9. FEATURED COLLECTIONS (6 VISUAL LOOKBOOKS)
+       ========================================================================== */
+    .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .collection-card {
+      position: relative;
+      height: 430px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--sand);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      color: var(--white);
+      transition: var(--transition-smooth);
+    }
+
+    .collection-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 22px 44px rgba(56, 189, 248, 0.24);
+    }
+
+    .collection-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .collection-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5,7,13,0.12) 25%, rgba(5,7,13,0.92) 100%);
+    }
+
+    .collection-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .collection-content {
+      position: relative;
+      z-index: 2;
+      transform: translateY(6px);
+      transition: transform 0.45s ease;
+    }
+
+    .collection-card:hover .collection-content {
+      transform: translateY(0);
+    }
+
+    .collection-tag {
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+    }
+
+    .collection-title {
+      font-family: var(--font-serif);
+      font-size: 2.1rem;
+      margin: 0.2rem 0 0.9rem;
+    }
+
+    .collection-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .collection-card:hover .collection-link {
+      color: var(--gold);
+    }
+
+    /* ==========================================================================
+       10. CUSTOMER REVIEWS (PURE CSS RADIO SLIDER)
+       ========================================================================== */
+    .reviews-section {
+      background: var(--alabaster);
+      border-top: 1px solid var(--sand);
+    }
+
+    .rev-radio {
+      display: none;
+    }
+
+    .review-box {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--charcoal);
+      border-radius: 26px;
+      padding: clamp(2rem, 5vw, 3.8rem);
+      border: 1px solid var(--sand);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), 0 0 28px rgba(56, 189, 248, 0.12);
+    }
+
+    .review-slide {
+      display: none;
+      align-items: center;
+      gap: 2.2rem;
+      animation: fadeUp 0.55s ease both;
+    }
+
+    #rev-1:checked ~ .review-box .rev-slide-1,
+    #rev-2:checked ~ .review-box .rev-slide-2,
+    #rev-3:checked ~ .review-box .rev-slide-3 {
+      display: flex;
+    }
+
+    .reviewer-avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+      flex-shrink: 0;
+    }
+
+    .review-stars {
+      color: var(--gold);
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .review-quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 2.6vw, 1.95rem);
+      font-style: italic;
+      line-height: 1.45;
+      color: var(--white);
+      margin-bottom: 1.1rem;
+    }
+
+    .reviewer-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .reviewer-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .review-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.65rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(56, 189, 248, 0.16);
+    }
+
+    .rev-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.25);
+      cursor: pointer;
+      transition: all 0.35s ease;
+    }
+
+    #rev-1:checked ~ .review-box label[for="rev-1"],
+    #rev-2:checked ~ .review-box label[for="rev-2"],
+    #rev-3:checked ~ .review-box label[for="rev-3"] {
+      width: 34px;
+      background: var(--gold);
+      box-shadow: 0 0 12px var(--gold);
+    }
+
+    /* ==========================================================================
+       11. NEWSLETTER SECTION
+       ========================================================================== */
+    .newsletter-section {
+      padding: 5.5rem 0;
+      text-align: center;
+      border-top: 1px solid var(--sand);
+    }
+
+    .newsletter-box {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .newsletter-sub {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      margin: 0.85rem 0 2.2rem;
+    }
+
+    .newsletter-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      min-width: 240px;
+      padding: 1.05rem 1.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--sand);
+      background: var(--charcoal);
+      color: var(--white);
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .newsletter-form input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.25);
+    }
+
+    /* ==========================================================================
+       12. LUXURY FOOTER
+       ========================================================================== */
+    .footer {
+      background: #03050A;
+      color: var(--white);
+      padding: 5rem 0 2.5rem;
+      border-top: 1px solid var(--sand);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: 3rem;
+      padding-bottom: 3.5rem;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.14);
+    }
+
+    .footer-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin: 1.1rem 0 1.5rem;
+      max-width: 340px;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      transition: var(--transition-smooth);
+    }
+
+    .social-icon:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--obsidian);
+      box-shadow: 0 0 16px var(--blue-glow);
+      transform: translateY(-3px);
+    }
+
+    .footer-heading {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.65rem;
+    }
+
+    .footer-links a {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      transition: color 0.3s ease, padding-left 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold-light);
+      padding-left: 4px;
+    }
+
+    .payment-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+      font-size: 1.45rem;
+      color: #D1D5DB;
+    }
+
+    .pay-chip {
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--sand);
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       13. PURE CSS MODALS & SHOPPING BAG DRAWER (:target)
+       ========================================================================== */
+    .css-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      background: rgba(5, 7, 13, 0.82);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .css-modal:target {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-card {
+      position: relative;
+      background: var(--charcoal);
+      color: var(--white);
+      border-radius: 26px;
+      max-width: 780px;
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid var(--sand);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(56, 189, 248, 0.2);
+      transform: translateY(20px);
+      transition: transform 0.35s ease;
+    }
+
+    .css-modal:target .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 5;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--beige);
+      border: 1px solid var(--sand);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: var(--gold);
+      color: var(--obsidian);
+    }
+
+    /* Quick View Grid */
+    .qv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+    }
+
+    .qv-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 360px;
+    }
+
+    .qv-body {
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .size-row {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1.2rem 0 1.8rem;
+    }
+
+    .size-tag {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .size-tag.active {
+      background: var(--gold);
+      color: var(--obsidian);
+      border-color: var(--gold);
+    }
+
+    /* Slide-over Cart Drawer */
+    .cart-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 950;
+      background: rgba(5, 7, 13, 0.78);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .cart-drawer-overlay:target {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: 430px;
+      background: var(--obsidian);
+      color: var(--white);
+      border-left: 1px solid var(--sand);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -20px 0 50px rgba(0, 0, 0, 0.7);
+    }
+
+    .cart-drawer-overlay:target .cart-panel {
+      transform: translateX(0);
+    }
+
+    .cart-head {
+      padding: 1.5rem;
+      background: var(--charcoal);
+      border-bottom: 1px solid var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cart-items {
+      padding: 1.5rem;
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .cart-item-row {
+      display: flex;
+      gap: 1rem;
+      background: var(--charcoal);
+      padding: 0.9rem;
+      border-radius: 16px;
+      border: 1px solid var(--sand);
+    }
+
+    .cart-item-row img {
+      width: 72px;
+      height: 88px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .cart-foot {
+      padding: 1.5rem;
+      background: var(--charcoal);
+      border-top: 1px solid var(--sand);
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding-top: 0.75rem;
+      margin-top: 0.75rem;
+      border-top: 1px solid var(--sand);
+    }
+
+    /* ==========================================================================
+       14. RESPONSIVE BREAKPOINTS (TABLET & MOBILE)
+       ========================================================================== */
+    @media (max-width: 1080px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 82px;
+        left: 0;
+        right: 0;
+        background: var(--charcoal);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem 5%;
+        gap: 0.6rem;
+        border-bottom: 1px solid var(--sand);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.75);
+      }
+
+      #mobile-menu-toggle:checked ~ .nav-inner .nav-links {
+        display: flex;
+      }
+
+      .has-dropdown {
+        padding: 0.35rem 0;
+        width: 100%;
+      }
+
+      .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        width: 100%;
+        margin-top: 0.5rem;
+        padding: 0.8rem 1rem;
+      }
+
+      .mobile-hamburger {
+        display: block;
+      }
+
+      .floating-emblem {
+        display: none;
+      }
+
+      .sale-card {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero {
+        height: auto;
+        padding: 5.5rem 0;
+      }
+
+      .review-slide {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .qv-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .qv-grid img {
+        max-height: 280px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .account-btn span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== 0. SMOOTH PAGE-LOADING CURTAIN ==================== -->
+  <div class="page-loader" aria-hidden="true">
+    <div class="loader-brand">AURELIA</div>
+    <div class="loader-track"><div class="loader-fill"></div></div>
+    <div class="loader-sub">Maison de Couture • Luxury Fashion</div>
+  </div>
+
+  <!-- ==================== TOP ANNOUNCEMENT MARQUEE ==================== -->
+  <div class="announcement-bar">
+    <div class="marquee-track">
+      <span>Complimentary Express Shipping on Orders Above ₹2,999</span><span class="star">✦</span>
+      <span>Mega Fashion Sale: Up to 70% Off Luxury Essentials</span><span class="star">✦</span>
+      <span>New Autumn / Winter Couture Collection Now Live</span><span class="star">✦</span>
+      <span>30-Day Hassle-Free Returns &amp; Exchanges</span><span class="star">✦</span>
+      <!-- Seamless Repeat -->
+      <span>Complimentary Express Shipping on Orders Above ₹2,999</span><span class="star">✦</span>
+      <span>Mega Fashion Sale: Up to 70% Off Luxury Essentials</span><span class="star">✦</span>
+      <span>New Autumn / Winter Couture Collection Now Live</span><span class="star">✦</span>
+      <span>30-Day Hassle-Free Returns &amp; Exchanges</span><span class="star">✦</span>
+    </div>
+  </div>
+
+  <!-- ==================== 2. STICKY ANIMATED NAVIGATION BAR ==================== -->
+  <header class="navbar">
+    <div class="container">
+      <!-- Pure CSS Checkbox Toggles for Mobile Menu & Search Bar -->
+      <input type="checkbox" id="mobile-menu-toggle" />
+      <input type="checkbox" id="search-toggle" />
+
+      <div class="nav-inner">
+        <!-- Mobile Hamburger Trigger -->
+        <label for="mobile-menu-toggle" class="mobile-hamburger" aria-label="Toggle Menu">
+          <i class="fa-solid fa-bars-staggered"></i>
+        </label>
+
+        <!-- Fashion Brand Logo -->
+        <a href="#home" class="brand-logo">
+          <span class="brand-monogram">A</span>
+          <span class="brand-name">AURELIA</span>
+        </a>
+
+        <!-- Navigation Links with Animated Dropdowns -->
+        <nav class="nav-links">
+          <a href="#home" class="nav-link">Home</a>
+
+          <!-- Men Dropdown -->
+          <div class="has-dropdown">
+            <a href="#categories" class="nav-link">Men <i class="fa-solid fa-chevron-down" style="font-size: 9px; color: var(--gold);"></i></a>
+            <ul class="dropdown-menu">
+              <div class="dropdown-title">MENSWEAR</div>
+              <li><a href="#categories">T-Shirts</a></li>
+              <li><a href="#categories">Shirts</a></li>
+              <li><a href="#categories">Jeans</a></li>
+              <li><a href="#categories">Trousers</a></li>
+              <li><a href="#categories">Hoodies &amp; Jackets</a></li>
+              <li><a href="#categories">Designer Shoes</a></li>
+            </ul>
+          </div>
+
+          <!-- Women Dropdown -->
+          <div class="has-dropdown">
+            <a href="#categories" class="nav-link">Women <i class="fa-solid fa-chevron-down" style="font-size: 9px; color: var(--gold);"></i></a>
+            <ul class="dropdown-menu">
+              <div class="dropdown-title">WOMENSWEAR</div>
+              <li><a href="#categories">Dresses</a></li>
+              <li><a href="#categories">Tops</a></li>
+              <li><a href="#categories">Sarees</a></li>
+              <li><a href="#categories">Kurtis &amp; Ethnic Wear</a></li>
+              <li><a href="#categories">Jeans &amp; Skirts</a></li>
+            </ul>
+          </div>
+
+          <!-- Kids Dropdown -->
+          <div class="has-dropdown">
+            <a href="#categories" class="nav-link">Kids <i class="fa-solid fa-chevron-down" style="font-size: 9px; color: var(--gold);"></i></a>
+            <ul class="dropdown-menu">
+              <div class="dropdown-title">JUNIOR COUTURE</div>
+              <li><a href="#categories">Boys Clothing</a></li>
+              <li><a href="#categories">Girls Clothing</a></li>
+              <li><a href="#categories">Baby Wear</a></li>
+              <li><a href="#categories">Kids Shoes</a></li>
+            </ul>
+          </div>
+
+          <a href="#products" class="nav-link">New Arrivals</a>
+          <a href="#collections" class="nav-link">Collections</a>
+          <a href="#sale" class="nav-link" style="color: var(--gold-dark); font-weight: 700;">
+            Sale <span class="sale-pill">70%</span>
+          </a>
+        </nav>
+
+        <!-- Utility Icons: Search, Wishlist, Cart, Account -->
+        <div class="nav-actions">
+          <label for="search-toggle" class="icon-btn" aria-label="Search" style="cursor: pointer;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </label>
+
+          <a href="#wishlist-drawer" class="icon-btn" aria-label="Wishlist">
+            <i class="fa-regular fa-heart"></i>
+            <span class="badge-count badge-gold">2</span>
+          </a>
+
+          <a href="#cart-drawer" class="icon-btn" aria-label="Shopping Cart">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="badge-count">2</span>
+          </a>
+
+          <a href="#account-modal" class="account-btn">
+            <i class="fa-regular fa-user" style="color: var(--gold);"></i>
+            <span>Account</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Expandable Search Bar -->
+      <div class="search-drawer">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search for oversized t-shirts, designer sarees, sneakers, kurtis..." />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 3. ANIMATED HERO SECTION ==================== -->
+  <section id="home" class="hero">
+    <!-- Automatic 3-Slide Animated Fashion Banners with Ken Burns Zoom & Parallax -->
+    <div class="hero-bg-slide hero-slide-1"></div>
+    <div class="hero-bg-slide hero-slide-2"></div>
+    <div class="hero-bg-slide hero-slide-3"></div>
+
+    <!-- Floating Visual Emblem -->
+    <div class="floating-emblem">
+      <span class="top">Edition</span>
+      <span class="year">2026</span>
+      <span class="bot">Runway Capsule</span>
+    </div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-pill">
+          <span class="dot"></span>
+          <span>Autumn / Winter Luxury Edit</span>
+        </div>
+
+        <h1 class="hero-title">DEFINE YOUR <span>STYLE</span></h1>
+
+        <p class="hero-subtitle">
+          Discover the latest trends. Wear your confidence. Architectural silhouettes, opulent fabrics, and timeless international elegance.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#products" class="btn btn-gold">SHOP MEN</a>
+          <a href="#products" class="btn btn-white">SHOP WOMEN</a>
+          <a href="#collections" class="btn btn-outline-light">EXPLORE COLLECTION</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. CLOTHING CATEGORIES (MEN, WOMEN, KIDS) ==================== -->
+  <section id="categories" class="section-padding">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-eyebrow">Curated Departments</span>
+          <h2 class="section-title">Shop By Category</h2>
+        </div>
+      </div>
+
+      <!-- Pure CSS Radio Switcher for Men (7), Women (7), Kids (4) -->
+      <input type="radio" name="category-dept" id="tab-men" class="cat-radio" checked />
+      <input type="radio" name="category-dept" id="tab-women" class="cat-radio" />
+      <input type="radio" name="category-dept" id="tab-kids" class="cat-radio" />
+
+      <div class="cat-tabs-bar">
+        <label for="tab-men" class="cat-tab-label">Men (7)</label>
+        <label for="tab-women" class="cat-tab-label">Women (7)</label>
+        <label for="tab-kids" class="cat-tab-label">Kids (4)</label>
+      </div>
+
+      <!-- MEN CATEGORIES (7 Cards) -->
+      <div class="cat-panel panel-men">
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Men T-Shirts" />
+          <div class="category-card-body">
+            <span class="category-dept">Men</span>
+            <h3 class="category-name">T-Shirts</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80" alt="Men Shirts" />
+          <div class="category-card-body">
+            <span class="category-dept">Men</span>
+            <h3 class="category-name">Shirts</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=80" alt="Men Jeans" />
+          <div class="category-card-body">
+            <span class="category-dept">Men</span>
+            <h3 class="category-name">Jeans</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80" alt="Men Trousers" />
+          <div class="category-card-body">
+            <span class="category-dept">Men</span>
+            <h3 class="category-name">Trousers</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80" alt="Men Hoodies" />
+          <div class="category-card-body">
+            <span class="category-dept">Men</span>
+            <h3 class="category-name">Hoodies</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80" alt="Men Jackets" />
+          <div class="category-card-body">
+            <span class="category-dept">Men</span>
+            <h3 class="category-name">Jackets</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80" alt="Men Shoes" />
+          <div class="category-card-body">
+            <span class="category-dept">Men</span>
+            <h3 class="category-name">Shoes</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+      </div>
+
+      <!-- WOMEN CATEGORIES (7 Cards) -->
+      <div class="cat-panel panel-women">
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80" alt="Women Dresses" />
+          <div class="category-card-body">
+            <span class="category-dept">Women</span>
+            <h3 class="category-name">Dresses</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=600&q=80" alt="Women Tops" />
+          <div class="category-card-body">
+            <span class="category-dept">Women</span>
+            <h3 class="category-name">Tops</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" alt="Women Sarees" />
+          <div class="category-card-body">
+            <span class="category-dept">Women</span>
+            <h3 class="category-name">Sarees</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=600&q=80" alt="Women Kurtis" />
+          <div class="category-card-body">
+            <span class="category-dept">Women</span>
+            <h3 class="category-name">Kurtis</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80" alt="Women Jeans" />
+          <div class="category-card-body">
+            <span class="category-dept">Women</span>
+            <h3 class="category-name">Jeans</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=600&q=80" alt="Women Skirts" />
+          <div class="category-card-body">
+            <span class="category-dept">Women</span>
+            <h3 class="category-name">Skirts</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=600&q=80" alt="Women Ethnic Wear" />
+          <div class="category-card-body">
+            <span class="category-dept">Women</span>
+            <h3 class="category-name">Ethnic Wear</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+      </div>
+
+      <!-- KIDS CATEGORIES (4 Cards) -->
+      <div class="cat-panel panel-kids">
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=600&q=80" alt="Boys Clothing" />
+          <div class="category-card-body">
+            <span class="category-dept">Kids</span>
+            <h3 class="category-name">Boys Clothing</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=600&q=80" alt="Girls Clothing" />
+          <div class="category-card-body">
+            <span class="category-dept">Kids</span>
+            <h3 class="category-name">Girls Clothing</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=600&q=80" alt="Baby Wear" />
+          <div class="category-card-body">
+            <span class="category-dept">Kids</span>
+            <h3 class="category-name">Baby Wear</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#products" class="category-card">
+          <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=600&q=80" alt="Kids Shoes" />
+          <div class="category-card-body">
+            <span class="category-dept">Kids</span>
+            <h3 class="category-name">Kids Shoes</h3>
+            <span class="category-cta">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. TRENDING PRODUCTS SECTION ==================== -->
+  <section id="products" class="section-padding products-section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-eyebrow">Most Coveted Pieces</span>
+          <h2 class="section-title">Trending Now</h2>
+        </div>
+      </div>
+
+      <!-- Pure CSS Category Filters -->
+      <input type="radio" name="prod-filter" id="filt-all" class="filter-radio" checked />
+      <input type="radio" name="prod-filter" id="filt-men" class="filter-radio" />
+      <input type="radio" name="prod-filter" id="filt-women" class="filter-radio" />
+      <input type="radio" name="prod-filter" id="filt-ethnic" class="filter-radio" />
+      <input type="radio" name="prod-filter" id="filt-footwear" class="filter-radio" />
+
+      <div class="filter-pills">
+        <label for="filt-all" class="filter-label">All Pieces (8)</label>
+        <label for="filt-men" class="filter-label">Men</label>
+        <label for="filt-women" class="filter-label">Women</label>
+        <label for="filt-ethnic" class="filter-label">Ethnic Couture</label>
+        <label for="filt-footwear" class="filter-label">Footwear</label>
+      </div>
+
+      <div class="products-grid">
+        <!-- Product 1: Premium Oversized T-Shirt – ₹799 -->
+        <article class="product-card" data-cat="men">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=85" alt="Premium Oversized T-Shirt" />
+            <span class="discount-tag">-50% OFF</span>
+            <input type="checkbox" id="wish-1" class="wish-checkbox" />
+            <label for="wish-1" class="wish-btn" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></label>
+            <div class="product-hover-bar">
+              <a href="#cart-drawer" class="add-bag-link">+ Add to Cart</a>
+              <a href="#qv-1" class="quick-view-link" title="Quick View"><i class="fa-regular fa-eye"></i></a>
+            </div>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-meta">
+                <span class="product-cat-label">Menswear</span>
+                <span class="product-stars"><i class="fa-solid fa-star"></i> 4.8 (214)</span>
+              </div>
+              <h3 class="product-title">Premium Oversized T-Shirt</h3>
+            </div>
+            <div class="product-price-row">
+              <span class="price-now">₹799</span>
+              <span class="price-was">₹1,599</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 2: Men's Casual Shirt – ₹1,299 -->
+        <article class="product-card" data-cat="men">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=85" alt="Men's Casual Shirt" />
+            <span class="discount-tag">-48% OFF</span>
+            <input type="checkbox" id="wish-2" class="wish-checkbox" />
+            <label for="wish-2" class="wish-btn" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></label>
+            <div class="product-hover-bar">
+              <a href="#cart-drawer" class="add-bag-link">+ Add to Cart</a>
+              <a href="#qv-2" class="quick-view-link" title="Quick View"><i class="fa-regular fa-eye"></i></a>
+            </div>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-meta">
+                <span class="product-cat-label">Menswear</span>
+                <span class="product-stars"><i class="fa-solid fa-star"></i> 4.7 (168)</span>
+              </div>
+              <h3 class="product-title">Men's Casual Shirt</h3>
+            </div>
+            <div class="product-price-row">
+              <span class="price-now">₹1,299</span>
+              <span class="price-was">₹2,499</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 3: Women's Floral Dress – ₹1,499 -->
+        <article class="product-card" data-cat="women">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=85" alt="Women's Floral Dress" />
+            <span class="discount-tag">-55% OFF</span>
+            <input type="checkbox" id="wish-3" class="wish-checkbox" checked />
+            <label for="wish-3" class="wish-btn" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></label>
+            <div class="product-hover-bar">
+              <a href="#cart-drawer" class="add-bag-link">+ Add to Cart</a>
+              <a href="#qv-3" class="quick-view-link" title="Quick View"><i class="fa-regular fa-eye"></i></a>
+            </div>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-meta">
+                <span class="product-cat-label">Womenswear</span>
+                <span class="product-stars"><i class="fa-solid fa-star"></i> 4.9 (342)</span>
+              </div>
+              <h3 class="product-title">Women's Floral Dress</h3>
+            </div>
+            <div class="product-price-row">
+              <span class="price-now">₹1,499</span>
+              <span class="price-was">₹3,299</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 4: Slim Fit Jeans – ₹1,199 -->
+        <article class="product-card" data-cat="men">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=85" alt="Slim Fit Jeans" />
+            <span class="discount-tag">-50% OFF</span>
+            <input type="checkbox" id="wish-4" class="wish-checkbox" />
+            <label for="wish-4" class="wish-btn" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></label>
+            <div class="product-hover-bar">
+              <a href="#cart-drawer" class="add-bag-link">+ Add to Cart</a>
+              <a href="#qv-4" class="quick-view-link" title="Quick View"><i class="fa-regular fa-eye"></i></a>
+            </div>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-meta">
+                <span class="product-cat-label">Denim</span>
+                <span class="product-stars"><i class="fa-solid fa-star"></i> 4.6 (195)</span>
+              </div>
+              <h3 class="product-title">Slim Fit Jeans</h3>
+            </div>
+            <div class="product-price-row">
+              <span class="price-now">₹1,199</span>
+              <span class="price-was">₹2,399</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 5: Premium Hoodie – ₹1,599 -->
+        <article class="product-card" data-cat="men">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=85" alt="Premium Hoodie" />
+            <span class="discount-tag">-50% OFF</span>
+            <input type="checkbox" id="wish-5" class="wish-checkbox" />
+            <label for="wish-5" class="wish-btn" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></label>
+            <div class="product-hover-bar">
+              <a href="#cart-drawer" class="add-bag-link">+ Add to Cart</a>
+              <a href="#qv-5" class="quick-view-link" title="Quick View"><i class="fa-regular fa-eye"></i></a>
+            </div>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-meta">
+                <span class="product-cat-label">Street Luxury</span>
+                <span class="product-stars"><i class="fa-solid fa-star"></i> 4.9 (289)</span>
+              </div>
+              <h3 class="product-title">Premium Hoodie</h3>
+            </div>
+            <div class="product-price-row">
+              <span class="price-now">₹1,599</span>
+              <span class="price-was">₹3,199</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 6: Women's Elegant Kurti – ₹999 -->
+        <article class="product-card" data-cat="women ethnic">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=800&q=85" alt="Women's Elegant Kurti" />
+            <span class="discount-tag">-55% OFF</span>
+            <input type="checkbox" id="wish-6" class="wish-checkbox" />
+            <label for="wish-6" class="wish-btn" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></label>
+            <div class="product-hover-bar">
+              <a href="#cart-drawer" class="add-bag-link">+ Add to Cart</a>
+              <a href="#qv-6" class="quick-view-link" title="Quick View"><i class="fa-regular fa-eye"></i></a>
+            </div>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-meta">
+                <span class="product-cat-label">Women • Ethnic</span>
+                <span class="product-stars"><i class="fa-solid fa-star"></i> 4.8 (410)</span>
+              </div>
+              <h3 class="product-title">Women's Elegant Kurti</h3>
+            </div>
+            <div class="product-price-row">
+              <span class="price-now">₹999</span>
+              <span class="price-was">₹2,199</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 7: Designer Saree – ₹2,499 -->
+        <article class="product-card" data-cat="women ethnic">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=85" alt="Designer Saree" />
+            <span class="discount-tag">-64% OFF</span>
+            <input type="checkbox" id="wish-7" class="wish-checkbox" checked />
+            <label for="wish-7" class="wish-btn" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></label>
+            <div class="product-hover-bar">
+              <a href="#cart-drawer" class="add-bag-link">+ Add to Cart</a>
+              <a href="#qv-7" class="quick-view-link" title="Quick View"><i class="fa-regular fa-eye"></i></a>
+            </div>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-meta">
+                <span class="product-cat-label">Couture Heritage</span>
+                <span class="product-stars"><i class="fa-solid fa-star"></i> 5.0 (512)</span>
+              </div>
+              <h3 class="product-title">Designer Saree</h3>
+            </div>
+            <div class="product-price-row">
+              <span class="price-now">₹2,499</span>
+              <span class="price-was">₹6,999</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 8: Casual Sneakers – ₹1,899 -->
+        <article class="product-card" data-cat="men women footwear">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=85" alt="Casual Sneakers" />
+            <span class="discount-tag">-50% OFF</span>
+            <input type="checkbox" id="wish-8" class="wish-checkbox" />
+            <label for="wish-8" class="wish-btn" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></label>
+            <div class="product-hover-bar">
+              <a href="#cart-drawer" class="add-bag-link">+ Add to Cart</a>
+              <a href="#qv-8" class="quick-view-link" title="Quick View"><i class="fa-regular fa-eye"></i></a>
+            </div>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-meta">
+                <span class="product-cat-label">Footwear</span>
+                <span class="product-stars"><i class="fa-solid fa-star"></i> 4.8 (276)</span>
+              </div>
+              <h3 class="product-title">Casual Sneakers</h3>
+            </div>
+            <div class="product-price-row">
+              <span class="price-now">₹1,899</span>
+              <span class="price-was">₹3,799</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 6. SPECIAL OFFERS SECTION (MEGA FASHION SALE) ==================== -->
+  <section id="sale" class="sale-section">
+    <div class="sale-glow-1"></div>
+    <div class="sale-glow-2"></div>
+
+    <div class="container">
+      <div class="sale-card">
+        <div>
+          <span class="sale-badge"><i class="fa-solid fa-bolt"></i> Limited-Time Event</span>
+          <h2 class="sale-heading">MEGA FASHION SALE</h2>
+          <div class="sale-offer">UP TO 70% OFF</div>
+          <p class="sale-sub">
+            Upgrade Your Wardrobe Without Breaking the Bank. Enjoy exclusive markdowns on signature runway garments, tailored essentials, and artisan ethnic wear.
+          </p>
+
+          <p style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.24em; color: var(--gold); margin-bottom: 0.7rem;">
+            Offer Ends In
+          </p>
+          <div class="countdown-grid">
+            <div class="cd-box">
+              <span class="cd-num">02</span>
+              <span class="cd-lbl">Days</span>
+            </div>
+            <div class="cd-box">
+              <span class="cd-num">18</span>
+              <span class="cd-lbl">Hours</span>
+            </div>
+            <div class="cd-box">
+              <span class="cd-num">45</span>
+              <span class="cd-lbl">Mins</span>
+            </div>
+            <div class="cd-box">
+              <span class="cd-num gold">30</span>
+              <span class="cd-lbl">Secs</span>
+            </div>
+          </div>
+
+          <a href="#products" class="btn btn-gold">
+            SHOP SALE <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="sale-visual">
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85" alt="Mega Fashion Sale" />
+          <div class="sale-code-overlay">
+            <div>
+              <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold);">Promo Code</span>
+              <div style="font-family: var(--font-serif); font-size: 1.35rem;">AURELIA70</div>
+            </div>
+            <span style="padding: 0.45rem 0.9rem; border-radius: 999px; border: 1px solid var(--gold); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold);">
+              Extra 10% Off
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 7. FEATURED COLLECTIONS ==================== -->
+  <section id="collections" class="section-padding">
+    <div class="container">
+      <div class="section-header" style="justify-content: center; text-align: center;">
+        <div>
+          <span class="section-eyebrow">Seasonal Lookbooks</span>
+          <h2 class="section-title">Featured Collections</h2>
+        </div>
+      </div>
+
+      <div class="collections-grid">
+        <!-- 1. Summer Collection -->
+        <a href="#products" class="collection-card">
+          <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=900&q=80" alt="Summer Collection" />
+          <div class="collection-content">
+            <span class="collection-tag">Breezy Linens &amp; Silks</span>
+            <h3 class="collection-title">Summer Collection</h3>
+            <span class="collection-link">Explore Collection <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- 2. Winter Collection -->
+        <a href="#products" class="collection-card">
+          <img src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=900&q=80" alt="Winter Collection" />
+          <div class="collection-content">
+            <span class="collection-tag">Cashmere &amp; Outerwear</span>
+            <h3 class="collection-title">Winter Collection</h3>
+            <span class="collection-link">Explore Collection <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- 3. Streetwear Collection -->
+        <a href="#products" class="collection-card">
+          <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=900&q=80" alt="Streetwear Collection" />
+          <div class="collection-content">
+            <span class="collection-tag">Urban Avant-Garde</span>
+            <h3 class="collection-title">Streetwear Collection</h3>
+            <span class="collection-link">Explore Collection <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- 4. Luxury Collection -->
+        <a href="#products" class="collection-card">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80" alt="Luxury Collection" />
+          <div class="collection-content">
+            <span class="collection-tag">Atelier Signature</span>
+            <h3 class="collection-title">Luxury Collection</h3>
+            <span class="collection-link">Explore Collection <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- 5. Traditional Collection -->
+        <a href="#products" class="collection-card">
+          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=80" alt="Traditional Collection" />
+          <div class="collection-content">
+            <span class="collection-tag">Royal Heritage Weaves</span>
+            <h3 class="collection-title">Traditional Collection</h3>
+            <span class="collection-link">Explore Collection <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- 6. Party Wear Collection -->
+        <a href="#products" class="collection-card">
+          <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=80" alt="Party Wear Collection" />
+          <div class="collection-content">
+            <span class="collection-tag">Midnight Glamour</span>
+            <h3 class="collection-title">Party Wear Collection</h3>
+            <span class="collection-link">Explore Collection <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 9. CUSTOMER REVIEWS SLIDER (PURE CSS) ==================== -->
+  <section class="section-padding reviews-section">
+    <div class="container">
+      <div class="section-header" style="justify-content: center; text-align: center;">
+        <div>
+          <span class="section-eyebrow">Client Stories</span>
+          <h2 class="section-title">Loved by Fashion Connoisseurs</h2>
+        </div>
+      </div>
+
+      <input type="radio" name="testimonial" id="rev-1" class="rev-radio" checked />
+      <input type="radio" name="testimonial" id="rev-2" class="rev-radio" />
+      <input type="radio" name="testimonial" id="rev-3" class="rev-radio" />
+
+      <div class="review-box">
+        <!-- Review 1 -->
+        <div class="review-slide rev-slide-1">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Ananya Sharma" class="reviewer-avatar" />
+          <div>
+            <div class="review-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="review-quote">
+              "The drape and fabric richness of AURELIA's Designer Saree rival couture houses at ten times the price. Truly an unforgettable luxury experience."
+            </p>
+            <div class="reviewer-name">Ananya Sharma</div>
+            <div class="reviewer-meta">Fashion Stylist, Mumbai • Verified Buyer of Designer Saree</div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-slide rev-slide-2">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Rohan Malhotra" class="reviewer-avatar" />
+          <div>
+            <div class="review-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="review-quote">
+              "Finally a luxury label that nails heavyweight Supima cotton fits and clean minimalist footwear. My wardrobe staples are exclusively AURELIA now."
+            </p>
+            <div class="reviewer-name">Rohan Malhotra</div>
+            <div class="reviewer-meta">Creative Director, Bengaluru • Verified Buyer of Oversized T-Shirt</div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-slide rev-slide-3">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Meera Krishnan" class="reviewer-avatar" />
+          <div>
+            <div class="review-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="review-quote">
+              "Subtle gold embroidery, breathable silk-cotton weave, and express delivery. Every piece feels thoughtfully tailored."
+            </p>
+            <div class="reviewer-name">Meera Krishnan</div>
+            <div class="reviewer-meta">Architect, Hyderabad • Verified Buyer of Women's Elegant Kurti</div>
+          </div>
+        </div>
+
+        <!-- Interactive Slider Dots -->
+        <div class="review-dots">
+          <label for="rev-1" class="rev-dot" aria-label="Review 1"></label>
+          <label for="rev-2" class="rev-dot" aria-label="Review 2"></label>
+          <label for="rev-3" class="rev-dot" aria-label="Review 3"></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 10. NEWSLETTER SECTION ==================== -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-box">
+        <span class="section-eyebrow">Private Access</span>
+        <h2 class="section-title">STAY IN STYLE</h2>
+        <p class="newsletter-sub">
+          Subscribe to receive exclusive offers, new arrivals and fashion updates directly in your inbox.
+        </p>
+        <form action="#subscribed-modal" class="newsletter-form">
+          <input type="email" required placeholder="Enter your email address" />
+          <button type="submit" class="btn btn-dark">SUBSCRIBE</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 11. LUXURY FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#home" class="brand-logo" style="color: var(--white);">
+            <span class="brand-monogram" style="color: var(--gold);">A</span>
+            <span class="brand-name">AURELIA</span>
+          </a>
+          <p class="footer-desc">
+            Redefining contemporary luxury with timeless silhouettes, sustainable craftsmanship, and effortless elegance for the modern wardrobe.
+          </p>
+          <div class="social-row">
+            <a href="#home" aria-label="Instagram" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#home" aria-label="Facebook" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#home" aria-label="Pinterest" class="social-icon"><i class="fa-brands fa-pinterest-p"></i></a>
+            <a href="#home" aria-label="YouTube" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Maison</h4>
+          <ul class="footer-links">
+            <li><a href="#info-about">About Us</a></li>
+            <li><a href="#info-contact">Contact Us</a></li>
+            <li><a href="#collections">Lookbooks</a></li>
+            <li><a href="#sale">Seasonal Sale</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Client Care</h4>
+          <ul class="footer-links">
+            <li><a href="#info-shipping">Shipping Information</a></li>
+            <li><a href="#info-returns">Return &amp; Refund Policy</a></li>
+            <li><a href="#info-privacy">Privacy Policy</a></li>
+            <li><a href="#info-terms">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Accepted Payments</h4>
+          <p style="font-size: 0.78rem; color: #9CA3AF;">100% Secure Encrypted Checkout</p>
+          <div class="payment-badges">
+            <span class="pay-chip"><i class="fa-brands fa-cc-visa"></i></span>
+            <span class="pay-chip"><i class="fa-brands fa-cc-mastercard"></i></span>
+            <span class="pay-chip"><i class="fa-brands fa-cc-amex"></i></span>
+            <span class="pay-chip"><i class="fa-brands fa-apple-pay"></i></span>
+            <span class="pay-chip"><i class="fa-brands fa-google-pay"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 AURELIA Luxury Fashion Pvt. Ltd. All Rights Reserved.</p>
+        <p style="text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.68rem; color: var(--gold);">
+          Designed for Timeless Elegance
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== 8. INTERACTIVE SHOPPING BAG & CHECKOUT DRAWERS ==================== -->
+  <!-- Slide-Over Shopping Cart -->
+  <div id="cart-drawer" class="cart-drawer-overlay">
+    <div class="cart-panel">
+      <div class="cart-head">
+        <h3 style="font-family: var(--font-serif); font-size: 1.65rem;">
+          <i class="fa-solid fa-bag-shopping" style="color: var(--gold); margin-right: 0.4rem;"></i> Shopping Bag (2)
+        </h3>
+        <a href="#products" class="modal-close" style="position: static;"><i class="fa-solid fa-xmark"></i></a>
+      </div>
+
+      <div class="cart-items">
+        <div class="cart-item-row">
+          <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=300&q=80" alt="Oversized T-Shirt" />
+          <div style="flex: 1;">
+            <h4 style="font-family: var(--font-serif); font-size: 1.15rem;">Premium Oversized T-Shirt</h4>
+            <p style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Size: M • Qty: 1</p>
+            <p style="font-weight: 700; margin-top: 0.5rem;">₹799</p>
+          </div>
+        </div>
+
+        <div class="cart-item-row">
+          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=300&q=80" alt="Designer Saree" />
+          <div style="flex: 1;">
+            <h4 style="font-family: var(--font-serif); font-size: 1.15rem;">Designer Saree</h4>
+            <p style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Free Size • Qty: 1</p>
+            <p style="font-weight: 700; margin-top: 0.5rem;">₹2,499</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-foot">
+        <div class="summary-line"><span>Subtotal</span><span>₹3,298</span></div>
+        <div class="summary-line"><span>Express Shipping</span><span style="color: #047857; font-weight: 600;">FREE</span></div>
+        <div class="summary-total"><span>Order Total</span><span style="font-family: var(--font-serif); font-size: 1.5rem;">₹3,298</span></div>
+        <a href="#checkout-modal" class="btn btn-dark" style="width: 100%; margin-top: 1.1rem;">PROCEED TO CHECKOUT</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wishlist Drawer -->
+  <div id="wishlist-drawer" class="cart-drawer-overlay">
+    <div class="cart-panel">
+      <div class="cart-head">
+        <h3 style="font-family: var(--font-serif); font-size: 1.65rem;">
+          <i class="fa-solid fa-heart" style="color: var(--gold); margin-right: 0.4rem;"></i> Saved Wishlist (2)
+        </h3>
+        <a href="#products" class="modal-close" style="position: static;"><i class="fa-solid fa-xmark"></i></a>
+      </div>
+      <div class="cart-items">
+        <div class="cart-item-row">
+          <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=300&q=80" alt="Floral Dress" />
+          <div style="flex: 1;">
+            <h4 style="font-family: var(--font-serif); font-size: 1.15rem;">Women's Floral Dress</h4>
+            <p style="font-weight: 700; margin: 0.35rem 0 0.6rem;">₹1,499</p>
+            <a href="#cart-drawer" class="btn btn-dark" style="padding: 0.5rem 1rem; font-size: 0.62rem;">Move to Bag</a>
+          </div>
+        </div>
+        <div class="cart-item-row">
+          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=300&q=80" alt="Designer Saree" />
+          <div style="flex: 1;">
+            <h4 style="font-family: var(--font-serif); font-size: 1.15rem;">Designer Saree</h4>
+            <p style="font-weight: 700; margin: 0.35rem 0 0.6rem;">₹2,499</p>
+            <a href="#cart-drawer" class="btn btn-dark" style="padding: 0.5rem 1rem; font-size: 0.62rem;">Move to Bag</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick View Product Details Popups -->
+  <div id="qv-1" class="css-modal">
+    <div class="modal-card">
+      <a href="#products" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+      <div class="qv-grid">
+        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=85" alt="Premium Oversized T-Shirt" />
+        <div class="qv-body">
+          <span class="section-eyebrow">Menswear • Essential</span>
+          <h3 style="font-family: var(--font-serif); font-size: 2.1rem;">Premium Oversized T-Shirt</h3>
+          <div style="margin: 0.6rem 0 1rem;">
+            <span class="price-now" style="font-size: 1.4rem;">₹799</span>
+            <span class="price-was" style="margin-left: 0.5rem;">₹1,599</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">
+            Crafted from 260 GSM combed organic Supima cotton with a relaxed drop-shoulder silhouette and signature tonal embroidery.
+          </p>
+          <div class="size-row">
+            <span class="size-tag">S</span>
+            <span class="size-tag active">M</span>
+            <span class="size-tag">L</span>
+            <span class="size-tag">XL</span>
+          </div>
+          <a href="#cart-drawer" class="btn btn-dark">ADD TO SHOPPING BAG</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="qv-3" class="css-modal">
+    <div class="modal-card">
+      <a href="#products" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+      <div class="qv-grid">
+        <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=85" alt="Women's Floral Dress" />
+        <div class="qv-body">
+          <span class="section-eyebrow">Womenswear • Summer Edit</span>
+          <h3 style="font-family: var(--font-serif); font-size: 2.1rem;">Women's Floral Dress</h3>
+          <div style="margin: 0.6rem 0 1rem;">
+            <span class="price-now" style="font-size: 1.4rem;">₹1,499</span>
+            <span class="price-was" style="margin-left: 0.5rem;">₹3,299</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">
+            Flowing chiffon midi dress adorned with botanical motifs, cinched waist, and delicate flutter sleeves.
+          </p>
+          <div class="size-row">
+            <span class="size-tag">XS</span>
+            <span class="size-tag active">S</span>
+            <span class="size-tag">M</span>
+            <span class="size-tag">L</span>
+          </div>
+          <a href="#cart-drawer" class="btn btn-dark">ADD TO SHOPPING BAG</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="qv-7" class="css-modal">
+    <div class="modal-card">
+      <a href="#products" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+      <div class="qv-grid">
+        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=85" alt="Designer Saree" />
+        <div class="qv-body">
+          <span class="section-eyebrow">Couture Heritage</span>
+          <h3 style="font-family: var(--font-serif); font-size: 2.1rem;">Designer Saree</h3>
+          <div style="margin: 0.6rem 0 1rem;">
+            <span class="price-now" style="font-size: 1.4rem;">₹2,499</span>
+            <span class="price-was" style="margin-left: 0.5rem;">₹6,999</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">
+            Opulent Banarasi tissue silk saree woven with luminous gold zari motifs and an unstitched designer blouse piece.
+          </p>
+          <div class="size-row">
+            <span class="size-tag active" style="width: auto; padding: 0 1rem;">Free Size</span>
+          </div>
+          <a href="#cart-drawer" class="btn btn-dark">ADD TO SHOPPING BAG</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fallback Quick Views for remaining items -->
+  <div id="qv-2" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 480px;"><a href="#products" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">Menswear</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">Men's Casual Shirt — ₹1,299</h3><p style="color: var(--text-muted); margin: 1rem 0 1.5rem;">Breathable European linen-cotton blend tailored shirt with mother-of-pearl buttons.</p><a href="#cart-drawer" class="btn btn-dark">ADD TO BAG</a></div></div>
+  <div id="qv-4" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 480px;"><a href="#products" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">Denim</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">Slim Fit Jeans — ₹1,199</h3><p style="color: var(--text-muted); margin: 1rem 0 1.5rem;">Japanese selvedge-inspired stretch denim engineered for all-day comfort and a clean tapered finish.</p><a href="#cart-drawer" class="btn btn-dark">ADD TO BAG</a></div></div>
+  <div id="qv-5" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 480px;"><a href="#products" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">Street Luxury</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">Premium Hoodie — ₹1,599</h3><p style="color: var(--text-muted); margin: 1rem 0 1.5rem;">Heavyweight French terry fleece hoodie with double-lined hood and antique gold aglets.</p><a href="#cart-drawer" class="btn btn-dark">ADD TO BAG</a></div></div>
+  <div id="qv-6" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 480px;"><a href="#products" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">Women • Ethnic</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">Women's Elegant Kurti — ₹999</h3><p style="color: var(--text-muted); margin: 1rem 0 1.5rem;">Handcrafted Chanderi silk-blend straight kurti accentuated with intricate zari neckline embroidery.</p><a href="#cart-drawer" class="btn btn-dark">ADD TO BAG</a></div></div>
+  <div id="qv-8" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 480px;"><a href="#products" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">Footwear</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">Casual Sneakers — ₹1,899</h3><p style="color: var(--text-muted); margin: 1rem 0 1.5rem;">Minimalist court sneakers crafted with supple vegan Nappa leather and memory-foam footbed.</p><a href="#cart-drawer" class="btn btn-dark">ADD TO BAG</a></div></div>
+
+  <!-- Checkout & Order Summary Modal -->
+  <div id="checkout-modal" class="css-modal">
+    <div class="modal-card" style="padding: 2.5rem; max-width: 560px;">
+      <a href="#products" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+      <span class="section-eyebrow">Secure Luxury Checkout</span>
+      <h3 style="font-family: var(--font-serif); font-size: 2.1rem; margin-bottom: 1rem;">Order Summary</h3>
+      <div style="background: var(--alabaster); padding: 1.2rem; border-radius: 16px; border: 1px solid var(--sand); margin-bottom: 1.5rem;">
+        <div class="summary-line"><span>Premium Oversized T-Shirt (×1)</span><span>₹799</span></div>
+        <div class="summary-line"><span>Designer Saree (×1)</span><span>₹2,499</span></div>
+        <div class="summary-line"><span>Express Insured Shipping</span><span style="color: #047857; font-weight: 600;">FREE</span></div>
+        <div class="summary-total"><span>Total Payable</span><span>₹3,298</span></div>
+      </div>
+      <form action="#order-confirmed" style="display: flex; flex-direction: column; gap: 0.85rem;">
+        <input type="text" required placeholder="Full Name" style="padding: 0.85rem 1rem; border-radius: 12px; border: 1px solid var(--sand);" />
+        <input type="text" required placeholder="Complete Delivery Address & PIN Code" style="padding: 0.85rem 1rem; border-radius: 12px; border: 1px solid var(--sand);" />
+        <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">PLACE ORDER NOW</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Account Login Modal -->
+  <div id="account-modal" class="css-modal">
+    <div class="modal-card" style="padding: 2.5rem; max-width: 440px;">
+      <a href="#home" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+      <span class="section-eyebrow">Member Access</span>
+      <h3 style="font-family: var(--font-serif); font-size: 2.1rem; margin-bottom: 0.5rem;">Welcome Back</h3>
+      <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 1.5rem;">Sign in to access your private wishlist and saved sizes.</p>
+      <form action="#home" style="display: flex; flex-direction: column; gap: 0.85rem;">
+        <input type="email" required placeholder="Email Address" style="padding: 0.85rem 1rem; border-radius: 12px; border: 1px solid var(--sand);" />
+        <input type="password" required placeholder="Password" style="padding: 0.85rem 1rem; border-radius: 12px; border: 1px solid var(--sand);" />
+        <button type="submit" class="btn btn-dark" style="width: 100%; margin-top: 0.4rem;">SIGN IN</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirmation & Footer Policy Modals -->
+  <div id="order-confirmed" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 440px; text-align: center;"><a href="#home" class="modal-close"><i class="fa-solid fa-xmark"></i></a><i class="fa-solid fa-circle-check" style="font-size: 2.8rem; color: var(--gold); margin-bottom: 0.8rem;"></i><h3 style="font-family: var(--font-serif); font-size: 2rem;">Order Confirmed!</h3><p style="color: var(--text-muted); margin: 0.8rem 0 1.5rem;">Thank you for shopping with AURELIA. Your order #AUR-202689 is being prepared with luxury gift packaging.</p><a href="#home" class="btn btn-dark">CONTINUE SHOPPING</a></div></div>
+  <div id="subscribed-modal" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 440px; text-align: center;"><a href="#home" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">VIP Access Unlocked</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">Welcome to AURELIA</h3><p style="color: var(--text-muted); margin: 0.8rem 0 1.5rem;">You are now subscribed to private runway previews and seasonal privileges.</p><a href="#home" class="btn btn-dark">RETURN TO STORE</a></div></div>
+  <div id="info-about" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 460px;"><a href="#home" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">AURELIA Maison</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">About Us</h3><p style="color: var(--text-muted); margin: 0.8rem 0 1.5rem;">Founded in 2026, AURELIA blends heritage craftsmanship with modern minimalist luxury using ethically sourced natural textiles.</p><a href="#home" class="btn btn-dark">CLOSE</a></div></div>
+  <div id="info-contact" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 460px;"><a href="#home" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">Client Concierge</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">Contact Us</h3><p style="color: var(--text-muted); margin: 0.8rem 0 1.5rem;">Email: concierge@aureliafashion.com<br>Toll-Free: +91 1800-889-2026<br>Flagship Boutiques: Banjara Hills, Hyderabad &amp; UB City, Bengaluru.</p><a href="#home" class="btn btn-dark">CLOSE</a></div></div>
+  <div id="info-shipping" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 460px;"><a href="#home" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">Delivery</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">Shipping Information</h3><p style="color: var(--text-muted); margin: 0.8rem 0 1.5rem;">Complimentary express delivery across India on orders above ₹2,999. Standard orders dispatch within 24 hours.</p><a href="#home" class="btn btn-dark">CLOSE</a></div></div>
+  <div id="info-returns" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 460px;"><a href="#home" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">Guarantee</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">Return &amp; Refund Policy</h3><p style="color: var(--text-muted); margin: 0.8rem 0 1.5rem;">Enjoy a 30-day no-questions-asked return and size exchange policy with doorstep pickup.</p><a href="#home" class="btn btn-dark">CLOSE</a></div></div>
+  <div id="info-privacy" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 460px;"><a href="#home" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">Security</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">Privacy Policy</h3><p style="color: var(--text-muted); margin: 0.8rem 0 1.5rem;">Your personal data is protected with 256-bit SSL encryption and never shared with third parties.</p><a href="#home" class="btn btn-dark">CLOSE</a></div></div>
+  <div id="info-terms" class="css-modal"><div class="modal-card" style="padding: 2.5rem; max-width: 460px;"><a href="#home" class="modal-close"><i class="fa-solid fa-xmark"></i></a><span class="section-eyebrow">Legal</span><h3 style="font-family: var(--font-serif); font-size: 2rem;">Terms &amp; Conditions</h3><p style="color: var(--text-muted); margin: 0.8rem 0 1.5rem;">All purchases are subject to AURELIA standard conditions of sale and authenticity guarantee.</p><a href="#home" class="btn btn-dark">CLOSE</a></div></div>
+
+</body>
+</html>
